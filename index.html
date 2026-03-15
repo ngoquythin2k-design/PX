@@ -113,11 +113,12 @@ setInterval(updateTime,1000);
 
 updateTime();
 
-var qrcode = new QRCode(document.getElementById("qrcode"), {
-text: "V23080280",
-width: 560,
-height: 560
-});
+var qrcode = new QRCode(document.getElementById("qrcode"),{
+text:"V23080280-"+Date.now()+"-SECURITY-WISTRON-CHECK",
+width:360,
+height:360,
+correctLevel: QRCode.CorrectLevel.H
+})
 
 </script>
 
