@@ -3,82 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>QR ACCESS</title>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<title>QR Access</title>
 
 <style>
 
 body{
-margin:0;
-font-family:"PingFang SC","Helvetica Neue",Arial;
-background:linear-gradient(180deg,#353a55,#1c2036);
+background: linear-gradient(#2c2f48,#1b1e2f);
+font-family: Arial;
 text-align:center;
 color:white;
 }
 
-.id{
-margin-top:60px;
-font-size:22px;
-letter-spacing:1px;
-}
-
-.card{
-background:#f2f2f2;
-width:340px;
-margin:auto;
-margin-top:20px;
-border-radius:18px;
-padding:22px;
-color:black;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
-}
-
-.header{
-background:#E3B64C;
-padding:16px;
-border-radius:10px;
-font-size:16px;
-margin-bottom:10px;
-}
-
-.time{
-font-size:16px;
-margin:10px 0;
-}
-
-#qrcode{
-display:flex;
-justify-content:center;
-margin:15px 0;
-}
-
-#qrcode img{
-width:210px;
-height:210px;
-image-rendering: pixelated;
-}
-
-.refresh{
-color:#9b9b9b;
-font-size:14px;
-margin-top:5px;
-}
-
-.count{
-color:#2dbf5b;
-font-size:24px;
-margin-top:10px;
+h3{
+margin-top:30px;
 font-weight:500;
 }
 
-.footer{
-margin-top:60px;
-color:#e6d9a8;
-font-size:15px;
-line-height:26px;
-padding:0 40px;
+.card{
+width:340px;
+margin:20px auto;
+background:white;
+border-radius:16px;
+padding-bottom:25px;
+color:black;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+position:relative;
+}
+
+/* thanh vàng */
+
+.top{
+background:#e3b64b;
+padding:18px;
+border-radius:14px 14px 0 0;
+font-size:16px;
+position:relative;
+}
+
+/* 2 chấm hai bên */
+
+.top:before,
+.top:after{
+content:"";
+width:14px;
+height:14px;
+background:#2c2f48;
+border-radius:50%;
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+}
+
+.top:before{
+left:-7px;
+}
+
+.top:after{
+right:-7px;
+}
+
+/* thời gian */
+
+.time{
+margin-top:14px;
+font-size:16px;
+}
+
+/* QR */
+
+.qr img{
+width:260px;
+height:260px;
+image-rendering: pixelated;
+}
+
+/* refresh */
+
+.refresh{
+color:#888;
+margin-top:10px;
+}
+
+/* countdown */
+
+.count{
+color:#2ecc71;
+font-size:24px;
+margin-top:10px;
+font-weight:bold;
+}
+
+/* notice */
+
+.notice{
+width:340px;
+margin:30px auto;
+font-size:13px;
+color:#f0dca0;
+line-height:22px;
 }
 
 </style>
@@ -86,82 +108,55 @@ padding:0 40px;
 
 <body>
 
-<div class="id">
-V23080280 (NGÔ QUÝ THÌN)
-</div>
+<h3>V23080280 (NGÔ QUÝ THÌN)</h3>
 
 <div class="card">
 
-<div class="header">
+<div class="top">
 将二维码对准扫描器刷码出场
 </div>
 
 <div class="time" id="time"></div>
 
-<div id="qrcode"></div>
-
-<div class="refresh">
-刷新二维码
+<div class="qr">
+<img id="qr">
 </div>
 
-<div class="count" id="countdown"></div>
+<div class="refresh">刷新二维码</div>
+
+<div class="count" id="count">00:59:18</div>
 
 </div>
 
-<div class="footer">
+<div class="notice">
 尊敬的员工您好，您已进入企业涉密区域，
-出于企业安全考虑，您的手机摄像头将被禁止拍摄，
+出于企业安全考虑，您的手机摄像头将被禁止拍摄。
 感谢您的配合。
 </div>
 
 <script>
 
+function updateTime(){
+let d=new Date();
+
+let t=d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()+" "
++d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
+
+document.getElementById("time").innerHTML=t;
+}
+
 function updateQR(){
+let d=new Date().getTime();
 
-let now = new Date()
-
-let timeString =
-now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate()
-+" "+
-String(now.getHours()).padStart(2,'0')+":"+
-String(now.getMinutes()).padStart(2,'0')+":"+
-String(now.getSeconds()).padStart(2,'0')
-
-document.getElementById("time").innerHTML=timeString
-
-document.getElementById("qrcode").innerHTML=""
-
-new QRCode(document.getElementById("qrcode"),{
-text:"V23080280|NGOQUYTHIN|"+timeString,
-width:210,
-height:210,
-correctLevel: QRCode.CorrectLevel.H
-})
-
+document.getElementById("qr").src =
+"https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=V23080280-"+d;
 }
 
-updateQR()
+updateTime();
+updateQR();
 
-setInterval(updateQR,10000)
-
-let seconds = 3600
-
-function countdown(){
-
-let h=Math.floor(seconds/3600)
-let m=Math.floor((seconds%3600)/60)
-let s=seconds%60
-
-document.getElementById("countdown").innerHTML =
-String(h).padStart(2,"0")+":"+
-String(m).padStart(2,"0")+":"+
-String(s).padStart(2,"0")
-
-seconds--
-
-}
-
-setInterval(countdown,1000)
+setInterval(updateTime,1000);
+setInterval(updateQR,30000);
 
 </script>
 
