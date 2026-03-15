@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
 <meta charset="UTF-8">
-<title>Security QR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>QR Access</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
@@ -11,59 +13,76 @@
 body{
 margin:0;
 font-family:Arial;
-background:linear-gradient(#3b3f56,#0d1b2a);
+background:linear-gradient(#3c4159,#0f2740);
+color:#fff;
 text-align:center;
 }
 
-.name{
-font-size:50px;
-color:#f5d68a;
-margin-top:40px;
-margin-bottom:25px;
+.header{
+font-size:26px;
+margin-top:80px;
+color:#e6d3a3;
 }
 
 .card{
-width:680px;
-margin:auto;
-background:white;
+width:420px;
+margin:20px auto;
+background:#fff;
 border-radius:12px;
+position:relative;
 overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
-.header{
-background:#e3b64b;
-color:white;
-font-size:38px;
-padding:18px;
+.top{
+background:#d6a843;
+color:#fff;
+padding:14px;
+font-size:18px;
 }
 
 .time{
-color:#1cc96b;
-font-size:36px;
-margin:15px 0;
-font-weight:bold;
+color:#2ecc71;
+font-size:22px;
+margin-top:10px;
 }
 
 #qrcode{
-display:flex;
-justify-content:center;
-margin-top:-5px;
-margin-bottom:0px;
+margin:10px auto 5px auto;
+width:360px;
+height:360px;
 }
 
 .refresh{
 color:#888;
-font-size:28px;
-padding:10px 0 20px 0;
+margin-bottom:12px;
 }
 
-.bottom{
-color:#f5d68a;
-font-size:40px;
+.dot-left{
+position:absolute;
+left:-8px;
+top:70px;
+width:16px;
+height:16px;
+background:#2d3046;
+border-radius:50%;
+}
+
+.dot-right{
+position:absolute;
+right:-8px;
+top:70px;
+width:16px;
+height:16px;
+background:#2d3046;
+border-radius:50%;
+}
+
+.text{
+color:#e6d3a3;
 width:85%;
-margin:35px auto;
-line-height:1.7;
+margin:40px auto;
+line-height:1.8;
+font-size:20px;
 }
 
 </style>
@@ -71,13 +90,16 @@ line-height:1.7;
 
 <body>
 
-<div class="name">
+<div class="header">
 V23080280 (Ngô Quý Thìn)
 </div>
 
 <div class="card">
 
-<div class="header">
+<div class="dot-left"></div>
+<div class="dot-right"></div>
+
+<div class="top">
 将二维码对准扫描器刷码出场
 </div>
 
@@ -91,7 +113,7 @@ V23080280 (Ngô Quý Thìn)
 
 </div>
 
-<div class="bottom">
+<div class="text">
 尊敬的员工您好，您已进入企业涉密区域，
 出于企业安全考虑，您的手机摄像头将被禁止拍摄，
 感谢您的配合。
@@ -101,24 +123,29 @@ V23080280 (Ngô Quý Thìn)
 
 function updateTime(){
 
-let now=new Date();
+let now=new Date()
 
-let time=
-now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate()+" "+
-now.getHours()+":"+now.getMinutes()+":"+now.getSeconds();
+let y=now.getFullYear()
+let m=now.getMonth()+1
+let d=now.getDate()
+let h=now.getHours()
+let mi=now.getMinutes()
+let s=now.getSeconds()
 
-document.getElementById("time").innerText=time;
+let time=y+"-"+m+"-"+d+" "+h+":"+mi+":"+s
+
+document.getElementById("time").innerHTML=time
 
 }
 
-setInterval(updateTime,1000);
+setInterval(updateTime,1000)
 
-updateTime();
+updateTime()
 
-var qrcode = new QRCode(document.getElementById("qrcode"),{
-text:data,
-width:420,
-height:420,
+new QRCode(document.getElementById("qrcode"),{
+text:"V23080280",
+width:360,
+height:360,
 correctLevel:QRCode.CorrectLevel.H
 })
 
