@@ -8,64 +8,60 @@
 
 <style>
 
-body{y
+body{
 margin:0;
 font-family:Arial;
-background:linear-gradient(#3b3f56,#101728);
-display:flex;
-flex-direction:column;
-align-items:center;
-color:white;
-}
-
-.id{
-margin-top:70px;
-font-size:23px;
-color:#e6d69a;
-}
-
-.card{
-width:880px;
-margin-top:25px;
-background:white;
-border-radius:12px;
-overflow:hidden;
-box-shadow:0 15px 40px rgba(0,0,0,0.5);
+background:linear-gradient(#3b3f56,#0d1b2a);
 text-align:center;
 }
 
+.name{
+font-size:30px;
+color:#f5d68a;
+margin-top:40px;
+margin-bottom:25px;
+}
+
+.card{
+width:440px;
+margin:auto;
+background:white;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
 .header{
-background:#e6b648;
-padding:18px;
-font-size:18px;
+background:#e3b64b;
 color:white;
+font-size:22px;
+padding:18px;
 }
 
 .time{
-font-size:20px;
-color:#00cc44;
+color:#1cc96b;
+font-size:26px;
 margin:15px 0;
+font-weight:bold;
 }
 
 #qrcode{
 display:flex;
 justify-content:center;
-align-items:center;
-padding:10px 0 20px 0;
 }
 
 .refresh{
 color:#888;
-margin-bottom:15px;
+font-size:18px;
+padding:10px 0 20px 0;
 }
 
-.notice{
+.bottom{
+color:#f5d68a;
+font-size:20px;
 width:85%;
-margin-top:40px;
-line-height:1.8;
-color:#e6d69a;
-font-size:16px;
-text-align:center;
+margin:35px auto;
+line-height:1.7;
 }
 
 </style>
@@ -73,7 +69,7 @@ text-align:center;
 
 <body>
 
-<div class="id">
+<div class="name">
 V23080280 (Ngô Quý Thìn)
 </div>
 
@@ -93,42 +89,35 @@ V23080280 (Ngô Quý Thìn)
 
 </div>
 
-<div class="notice">
-尊敬的员工您好，您已进入企业涉密区域，<br>
-出于企业安全考虑，您的手机摄像头将被禁止拍摄，<br>
+<div class="bottom">
+尊敬的员工您好，您已进入企业涉密区域，
+出于企业安全考虑，您的手机摄像头将被禁止拍摄，
 感谢您的配合。
 </div>
 
 <script>
 
-let qr
+function updateTime(){
 
-function updateQR(){
-
-let now=new Date()
+let now=new Date();
 
 let time=
 now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate()+" "+
-String(now.getHours()).padStart(2,'0')+":"+
-String(now.getMinutes()).padStart(2,'0')+":"+
-String(now.getSeconds()).padStart(2,'0')
+now.getHours()+":"+now.getMinutes()+":"+now.getSeconds();
 
-document.getElementById("time").innerHTML=time
-
-let data="ID:V23080280|TIME:"+time
-
-if(!qr){
-qr=new QRCode(document.getElementById("qrcode"),{
-text:data,
-width:780,
-height:780
-})
-}
+document.getElementById("time").innerText=time;
 
 }
 
-updateQR()
-setInterval(updateQR,1000)
+setInterval(updateTime,1000);
+
+updateTime();
+
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+text: "V23080280",
+width: 400,
+height: 400
+});
 
 </script>
 
