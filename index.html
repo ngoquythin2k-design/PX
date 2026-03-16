@@ -16,7 +16,7 @@ color:white;
 overflow:hidden;
 }
 
-/* nền chữ SECURITY */
+/* nền chữ 3D SECURITY */
 
 body::before{
 content:"SECURITY";
@@ -30,7 +30,16 @@ left:-20%;
 letter-spacing:20px;
 pointer-events:none;
 }
-
+body{
+margin:0;
+font-family:Arial;
+background:
+linear-gradient(180deg,#3c3f55,#23273c),
+url("https://i.imgur.com/W4xGk8h.png");
+background-size:cover;
+color:white;
+text-align:center;
+}
 h3{
 margin-top:30px;
 font-weight:500;
@@ -91,7 +100,12 @@ width:270px;
 height:270px;
 image-rendering:pixelated;
 }
-
+new QRCode(document.getElementById("qrcode"),{
+text:data,
+width:280,
+height:280,
+correctLevel:QRCode.CorrectLevel.H
+})
 /* refresh */
 
 .refresh{
